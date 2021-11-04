@@ -41,10 +41,11 @@ class PhoneBook:
     def measure(self):
 # kita ingin menggunakan file size yang digunakan untuk menyimpan record (phonebook.db)
 # dan jumlah record yang digunakan
+        username = os.environ['USERNAME'] or 'NOTHING'
         file = os.stat(self.namafile)
         file_size = file.st_size  #dalam bytes
         jumlah_record = len(self.db.keys())
-        return dict(status="OK",data=dict(size=file_size,record=jumlah_record))
+        return dict(status="OK",data=dict(username=username,size=file_size,record=jumlah_record))
 
 
 
