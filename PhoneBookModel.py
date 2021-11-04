@@ -1,5 +1,6 @@
 import shelve
 import uuid
+import os
 
 class PhoneBook:
     def __init__(self):
@@ -37,8 +38,13 @@ class PhoneBook:
             return dict(status='OK',id=id,data=self.db[id])
         except:
             return dict(status='ERR',msg='Tidak Ketemu')
-
-
+    def measure(self):
+# kita ingin menggunakan file size yang digunakan untuk menyimpan record (phonebook.db)
+# dan jumlah record yang digunakan
+        file = os.stat(self.namafile)
+        file_size = file.st_size  #dalam bytes
+        jumlah_record = len(self.db.keys())
+        return dict(status="OK",data=dict(size=file_size,record=jumlah_record))
 
 
 
@@ -53,6 +59,7 @@ if __name__=='__main__':
 #    print(result)
 #    ------------ list
     print(pd.list())
+    print(pd.measure())
 #    ------------ info
 #    print(pd.read('c516b780-2fa2-11eb-bf35-7fc0bd24c845'))
 

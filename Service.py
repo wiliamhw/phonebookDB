@@ -18,6 +18,14 @@ class PhoneBooksAPI(Resource):
         s = self.phonebook.create(self.datakirim)
         return jsonify(s)
 
+class PhoneBookAPIMeasure(Resource):
+    def __init__(self):
+        self.phonebook = PhoneBook()
+    def get(self):
+        s = self.phonebook.measure()
+        return jsonify(s)
+
+
 class PhoneBookAPI(Resource):
     def __init__(self):
         self.phonebook = PhoneBook()
@@ -36,6 +44,8 @@ class PhoneBookAPI(Resource):
         return jsonify(s)
 
 
+
+
 def get_flask(name):
     app = Flask(name)
     app.secret_key = b'781231casda9871293812h3'
@@ -46,6 +56,7 @@ def get_blueprint(nama):
     api = Api(app)
     api.add_resource(PhoneBooksAPI,'/phones',endpoint='phones')
     api.add_resource(PhoneBookAPI,'/phones/<id>',endpoint='phone')
+    api.add_resource(PhoneBookAPIMeasure,'/phones/measure',endpoint='phonemeasure')
     return app
 
 app = get_blueprint(__name__)
