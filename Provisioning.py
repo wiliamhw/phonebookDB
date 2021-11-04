@@ -1,9 +1,16 @@
 import shelve
 import uuid
+import docker
+import hashlib
 
-class PhoneBook:
+
+
+
+
+class Provisioning:
     def __init__(self):
-        self.namafile = 'phonebook.db'
+        self.docker_client = docker.from_env()
+        self.namafile = 'users.db'
         self.db = shelve.open(self.namafile,writeback=True)
     def list(self):
         data = []
@@ -13,10 +20,13 @@ class PhoneBook:
             return dict(status='OK',data=data)
         except:
             return dict(status='ERR',msg='Error')
-    def create(self,info):
+    def create(self,username,password):
         try:
             id = str(uuid.uuid1())
-            self.db[id] = info
+            self.db[id] = dict(username=username,password=hashlib.md5(password),port=11111,provision_status=False,info=dict())
+            self.docker_client.containers.run("my-phonebook-service",detach=True,)
+
+
             return dict(status='OK',id=id)
         except:
             return dict(status='ERR',msg='Tidak bisa Create')
@@ -40,21 +50,6 @@ class PhoneBook:
 
 
 
-
-
 if __name__=='__main__':
-    pd = PhoneBook()
-#    ----------- create
-#    result = pd.create(dict(nama='royyana',alamat='ketintang',notelp='6212345'))
-#    print(result)
-#    result = pd.create(dict(nama='ibrahim',alamat='ketintang',notelp='6212341'))
-#    print(result)
-#    result = pd.create(dict(nama='Ananda', alamat='Dinoyo Sekolahan', notelp='6212345'))
-#    print(result)
-#    ------------ list
-    print(pd.list())
-#    ------------ info
-#    print(pd.read('c516b780-2fa2-11eb-bf35-7fc0bd24c845'))
-
-
-
+    p = Provisioning()
+    p.create('royyana','sukolilo4567')
