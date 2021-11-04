@@ -1,3 +1,14 @@
+Untuk membundling program kedalam docker images
+- jalankan sh build.sh
+atau
+- docker build -t my-phonebook-service:latest .
+
+------------------------
+Jalankan service yang sudah dibundling di docker images
+- docker rm -f PHONEBOOK; docker run -d -p 32000:32000 --name PHONEBOOK my-phonebook-service:latest
+- akan membuat process yang merupakan container di localhost di port 32000
+
+-------------------
 untuk melihat daftar phonebook
  curl -X GET http://localhost:32000/phones
 
