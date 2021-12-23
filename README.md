@@ -14,5 +14,4 @@ buatlah dulu lingkungan virtual environment
 ### Dengan Docker
 1. Jalankan `bash build.sh`.
 2. Jalankan `bash run.sh`.
-3. Hapus `phonebook.db` bila ada.
-4. Lihatlah file `testing.txt` untuk testing
+3. Lihatlah file `testing.txt` untuk testing
