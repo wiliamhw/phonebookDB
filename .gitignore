@@ -1,2 +1,6 @@
 venv/
 .idea/
+access.log
+error.log
+process.pid
+__pycache__
